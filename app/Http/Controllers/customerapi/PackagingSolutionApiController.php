@@ -119,13 +119,10 @@ class PackagingSolutionApiController extends Controller
                         errorMessage(__('packaging_solution.packaging_solution_not_found'), $msg_data);
                     }
 
-                    $relatedBanner = Product::find($request->product_id)->banners;
-                    $relatedBanner = SolutionBanner::join('banner_products', 'solution_banner_id', 'product_id')
-                    ->where([
-                        ['banner_products.product_id', '=', $request->product_id],
-                        ['solution_banners.end_date_time', '>=', now()],
-
-                    ])->get();
+                    $relatedBanner = Product::find($request->product_id)
+                        ->banners()
+                        ->where('end_date_time', '>=', now())
+                    ;
                     $responseData['banners'] = $relatedBanner;
                     $responseData['result'] = $data;
                     $responseData['is_subscribed'] = $isSubscribed;
