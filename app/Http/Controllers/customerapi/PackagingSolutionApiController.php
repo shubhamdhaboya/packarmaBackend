@@ -14,6 +14,7 @@ use App\Models\PackingType;
 use App\Models\PackagingMachine;
 use App\Models\PackagingTreatment;
 use App\Models\PackagingMaterial;
+use App\Models\SolutionBanner;
 use App\Models\StorageCondition;
 use Carbon\Carbon;
 use Response;
@@ -119,6 +120,11 @@ class PackagingSolutionApiController extends Controller
                     }
 
                     $relatedBanner = Product::find($request->product_id)->banners;
+                    $relatedBanner = SolutionBanner::where([
+                        ['product_id', '=', $request->product_id],
+                        ['end_date_time', '>=', now()],
+
+                    ])->get();
                     $responseData['banners'] = $relatedBanner;
                     $responseData['result'] = $data;
                     $responseData['is_subscribed'] = $isSubscribed;
