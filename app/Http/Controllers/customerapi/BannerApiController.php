@@ -42,7 +42,7 @@ class BannerApiController extends Controller
                 $data = Banner::select('id', 'title', 'link', 'description', 'app_page_id', 'banner_image', 'banner_thumb_image', 'seo_url', 'meta_title', 'meta_description', 'meta_keyword')
                     ->where([
                         ['status', '=', '1'],
-                        ['end_date_time', '<', now()],
+                        ['end_date_time', '>=', now()],
                     ])
                 ;
                 $bannerData = Banner::whereRaw("1 = 1");
