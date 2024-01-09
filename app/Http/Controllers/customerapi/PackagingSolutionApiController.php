@@ -120,8 +120,7 @@ class PackagingSolutionApiController extends Controller
                     }
 
                     $relatedBanner = Product::find($request->product_id)
-                        ->banners()
-                        ->where('end_date_time', '>=', now())
+                        ->banners
                     ;
                     $responseData['banners'] = $relatedBanner;
                     $responseData['result'] = $data;
