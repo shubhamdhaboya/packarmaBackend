@@ -89,5 +89,12 @@ class Product extends Model
     {
         return $this->belongsToMany(SolutionBanner::class, 'banner_products', 'product_id', 'solution_banner_id');
     }
+
+    public function active_banners(): BelongsToMany
+    {
+        return $this->belongsToMany(SolutionBanner::class, 'banner_products', 'product_id', 'solution_banner_id')
+            ->where('solutions_banners.end_date_time', '>', now())
+        ;
+    }
     // mutators end
 }
