@@ -120,9 +120,10 @@ class PackagingSolutionApiController extends Controller
                     }
 
                     $relatedBanner = Product::find($request->product_id)->banners;
-                    $relatedBanner = SolutionBanner::where([
-                        ['product_id', '=', $request->product_id],
-                        ['end_date_time', '>=', now()],
+                    $relatedBanner = SolutionBanner::join('banner_products', 'solution_banner_id', 'product_id')
+                    ->where([
+                        ['banner_products.product_id', '=', $request->product_id],
+                        ['solution_banners.end_date_time', '>=', now()],
 
                     ])->get();
                     $responseData['banners'] = $relatedBanner;
